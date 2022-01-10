@@ -79,6 +79,16 @@ class ApiServiceTest {
     }
 
     @Test
+    fun getCommentByPostIdTest() = runBlocking {
+        enqueueResponse("postcomments.json")
+        val comments = service.getCommentByPostId(1).body()
+
+        assertThat(comments).isNotNull()
+        assertThat(comments!!.size).isEqualTo(5)
+        assertThat(comments[0].postId).isEqualTo(1)
+    }
+
+    @Test
     fun getCommentByIdTest() = runBlocking {
         enqueueResponse("comment.json")
         val comment = service.getCommentById(1).body()

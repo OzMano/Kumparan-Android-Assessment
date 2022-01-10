@@ -35,6 +35,13 @@ interface CommentsDao {
     fun getCommentById(commentId: Int): Flow<Comment>
 
     /**
+     * mengambil list comment dari table [Comment.TABLE_NAME] jika post id nya sama dengan [commentId]
+     * @param postId post id
+     */
+    @Query("SELECT * FROM ${Comment.TABLE_NAME} WHERE postId = :postId")
+    fun getCommentByPostId(postId: Int): Flow<List<Comment>>
+
+    /**
      * mengambil semua comment dari table [Comment.TABLE_NAME]
      * @return [Flow]
      */

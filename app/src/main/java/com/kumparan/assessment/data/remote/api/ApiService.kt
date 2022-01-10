@@ -24,6 +24,9 @@ interface ApiService {
     @GET("/comments/{id}")
     suspend fun getCommentById(@Path("id") id: Int): Response<Comment>
 
+    @GET("/comments")
+    suspend fun getCommentByPostId(@Query("postId") id: Int): Response<List<Comment>>
+
     @GET("/albums")
     suspend fun getAllAlbums(): Response<List<Album>>
 
