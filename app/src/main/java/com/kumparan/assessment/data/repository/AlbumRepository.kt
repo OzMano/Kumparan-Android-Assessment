@@ -48,9 +48,7 @@ class DefaultAlbumRespository @Inject constructor(
             }
 
             // emit data response dari local database
-            albumsDao.getAllAlbums().map {
-                emit(Resource.Success(it))
-            }
+            emit(Resource.Success(albumsDao.getAllAlbums().first()))
         }.catch { e ->
             e.printStackTrace()
             emit(Resource.Failed("Error! Can't fetch albums data."))
@@ -82,9 +80,7 @@ class DefaultAlbumRespository @Inject constructor(
             }
 
             // emit data response dari local database
-            albumsDao.getAlbumsByUserId(userId).map {
-                emit(Resource.Success(it))
-            }
+            emit(Resource.Success(albumsDao.getAlbumsByUserId(userId).first()))
         }.catch { e ->
             e.printStackTrace()
             emit(Resource.Failed("Error! Can't fetch albums data."))
@@ -116,9 +112,7 @@ class DefaultAlbumRespository @Inject constructor(
             }
 
             // emit data response dari local database
-            albumsDao.getAlbumById(albumId).map {
-                emit(Resource.Success(it))
-            }
+            emit(Resource.Success(albumsDao.getAlbumById(albumId).first()))
         }.catch { e ->
             e.printStackTrace()
             emit(Resource.Failed("Error! Can't fetch album data."))

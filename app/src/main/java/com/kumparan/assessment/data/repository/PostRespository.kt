@@ -47,9 +47,7 @@ class DefaultPostRespository @Inject constructor(
             }
 
             // emit data response dari local database
-            postsDao.getAllPosts().map {
-                emit(Resource.Success(it))
-            }
+            emit(Resource.Success(postsDao.getAllPosts().first()))
         }.catch { e ->
             e.printStackTrace()
             emit(Resource.Failed("Error! Can't fetch posts data."))
@@ -81,9 +79,7 @@ class DefaultPostRespository @Inject constructor(
             }
 
             // emit data response dari local database
-            postsDao.getPostById(postId).map {
-                emit(Resource.Success(it))
-            }
+            emit(Resource.Success(postsDao.getPostById(postId).first()))
         }.catch { e ->
             e.printStackTrace()
             emit(Resource.Failed("Error! Can't fetch post data."))

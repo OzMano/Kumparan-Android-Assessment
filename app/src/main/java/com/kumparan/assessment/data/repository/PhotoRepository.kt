@@ -48,9 +48,7 @@ class DefaultPhotoRespository @Inject constructor(
             }
 
             // emit data response dari local database
-            photosDao.getAllPhotos().map {
-                emit(Resource.Success(it))
-            }
+            emit(Resource.Success(photosDao.getAllPhotos().first()))
         }.catch { e ->
             e.printStackTrace()
             emit(Resource.Failed("Error! Can't fetch photos data."))
@@ -82,9 +80,7 @@ class DefaultPhotoRespository @Inject constructor(
             }
 
             // emit data response dari local database
-            photosDao.getPhotosByAlbumId(albumId).map {
-                emit(Resource.Success(it))
-            }
+            emit(Resource.Success(photosDao.getPhotosByAlbumId(albumId).first()))
         }.catch { e ->
             e.printStackTrace()
             emit(Resource.Failed("Error! Can't fetch photos data."))
@@ -116,9 +112,7 @@ class DefaultPhotoRespository @Inject constructor(
             }
 
             // emit data response dari local database
-            photosDao.getPhotoById(photoId).map {
-                emit(Resource.Success(it))
-            }
+            emit(Resource.Success(photosDao.getPhotoById(photoId).first()))
         }.catch { e ->
             e.printStackTrace()
             emit(Resource.Failed("Error! Can't fetch photo data."))
