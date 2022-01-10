@@ -129,6 +129,16 @@ class ApiServiceTest {
     }
 
     @Test
+    fun getAlbumPhotosTest() = runBlocking {
+        enqueueResponse("photos.json")
+        val photos = service.getAlbumPhotos(1).body()
+
+        assertThat(photos).isNotNull()
+        assertThat(photos!!.size).isEqualTo(2)
+        assertThat(photos[0].albumId).isEqualTo(1)
+    }
+
+    @Test
     fun getAllPhotosByAlbumIdTest() = runBlocking {
         enqueueResponse("photosalbum.json")
         val photos = service.getAllPhotosByAlbumId(1).body()
@@ -146,6 +156,16 @@ class ApiServiceTest {
         assertThat(users).isNotNull()
         assertThat(users!!.size).isEqualTo(10)
         assertThat(users[0].name).isEqualTo("Leanne Graham")
+    }
+
+    @Test
+    fun getUserAlbumsTest() = runBlocking {
+        enqueueResponse("albums.json")
+        val albums = service.getUserAlbums(1).body()
+
+        assertThat(albums).isNotNull()
+        assertThat(albums!!.size).isEqualTo(100)
+        assertThat(albums[0].userId).isEqualTo(1)
     }
 
     @Test

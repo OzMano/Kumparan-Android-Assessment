@@ -27,6 +27,9 @@ interface ApiService {
     @GET("/albums")
     suspend fun getAllAlbums(): Response<List<Album>>
 
+    @GET("/albums/{albumId}/photos")
+    suspend fun getAlbumPhotos(@Path("albumId") albumId: Int): Response<List<Photo>>
+
     @GET("/albums/{id}")
     suspend fun getAlbumById(@Path("id") id: Int): Response<Album>
 
@@ -44,6 +47,9 @@ interface ApiService {
 
     @GET("/users/{id}")
     suspend fun getUserById(@Path("id") id: Int): Response<User>
+
+    @GET("/users/{userId}/albums")
+    suspend fun getUserAlbums(@Path("userId") id: Int): Response<List<Album>>
 
     companion object {
         const val TYPICODE_API_URL = "https://jsonplaceholder.typicode.com"
