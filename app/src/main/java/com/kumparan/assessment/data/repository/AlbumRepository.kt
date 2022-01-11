@@ -3,6 +3,7 @@ package com.kumparan.assessment.data.repository
 import com.kumparan.assessment.data.local.dao.AlbumsDao
 import com.kumparan.assessment.data.remote.api.ApiService
 import com.kumparan.assessment.model.Album
+import com.kumparan.assessment.model.PhotoAlbum
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -11,6 +12,7 @@ import javax.inject.Inject
 interface AlbumRepository {
     fun getAllAlbums(): Flow<Resource<List<Album>>>
     fun getUserAlbums(userId: Int): Flow<Resource<List<Album>>>
+    fun getUserAlbumsPhotos(userId: Int): Flow<Resource<List<PhotoAlbum>>>
     fun getAlbumById(albumId: Int): Flow<Resource<Album>>
 }
 
@@ -116,6 +118,60 @@ class DefaultAlbumRespository @Inject constructor(
         }.catch { e ->
             e.printStackTrace()
             emit(Resource.Failed("Error! Can't fetch album data."))
+        }
+    }
+
+    /**
+     * mengambil list album dan photo dari user berdasarkan user id
+     */
+    override fun getUserAlbumsPhotos(userId: Int): Flow<Resource<List<PhotoAlbum>>> {
+        return flow<Resource<List<PhotoAlbum>>> {
+
+            // mengambil list album dari user
+            val apiResponse = apiService.getUserAlbums(userId)
+
+            // parsing response body
+            val remoteAlbums = apiResponse.body()
+
+            val albumPhotos = arrayListOf<PhotoAlbum>()
+
+            // melakukan pengecekan response dari remote
+            if (apiResponse.isSuccessful && remoteAlbums != null) {
+                remoteAlbums.forEach { album ->
+                    var photoAlbum = PhotoAlbum(
+                        is_album = true,
+                        album_title = album.title,
+                        album = album
+                    )
+
+                    albumPhotos.add(photoAlbum)
+
+                    val apiPhotoResponse = apiService.getAlbumPhotos(album.id)
+                    val remotePhotos = apiPhotoResponse.body()
+
+                    if (apiPhotoResponse.isSuccessful && remotePhotos != null) {
+                        remotePhotos.forEach { photo ->
+                            photoAlbum = PhotoAlbum(
+                                is_album = false,
+                                photo_title = photo.title,
+                                photo = photo
+                            )
+
+                            albumPhotos.add(photoAlbum)
+                        }
+                    }else{
+                        emit(Resource.Failed(apiPhotoResponse.message()))
+                    }
+                }
+
+                emit(Resource.Success(albumPhotos))
+            } else {
+                // response error.
+                emit(Resource.Failed(apiResponse.message()))
+            }
+        }.catch { e ->
+            e.printStackTrace()
+            emit(Resource.Failed("Error! Can't fetch albums photos data."))
         }
     }
 }
