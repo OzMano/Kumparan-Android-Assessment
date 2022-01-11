@@ -77,20 +77,28 @@ class PostActivity : BaseActivity<PostViewModel, ActivityPostBinding>() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 mViewModel.comments.collect { state ->
                     when (state) {
-                        is State.Loading -> mViewBinding.progressbar.show()
+                        is State.Loading -> showProgress(true)
                         is State.Success -> {
                             if (state.data.isNotEmpty()) {
                                 mAdapter.submitList(state.data.toMutableList())
                             }
-                            mViewBinding.progressbar.hide()
+                            showProgress(false)
                         }
                         is State.Error -> {
                             showToast(state.message)
-                            mViewBinding.progressbar.hide()
+                            showProgress(false)
                         }
                     }
                 }
             }
+        }
+    }
+
+    private fun showProgress(show: Boolean) {
+        if (show) {
+            mViewBinding.progressbar.show()
+        } else {
+            mViewBinding.progressbar.hide()
         }
     }
 
