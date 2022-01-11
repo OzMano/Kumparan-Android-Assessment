@@ -4,7 +4,8 @@ Hi, My name is **Julham**. This app is made to fulfill **Android Assessment** fo
 and demonstrate the use of modern android development tools.
 
 ***To download and try this application, please press the button below***
-[![Assessment App](https://img.shields.io/badge/DOWNLOAD-APK-red.svg?style=for-the-badge&logo=android)](https://drive.google.com/uc?export=download&id=1Ni8nv3cUT6U9o85ukQAV3uPu6qtU64Ak)
+
+[![Assessment App](https://img.shields.io/badge/DOWNLOAD-APK-red.svg?style=for-the-badge&logo=android)](https://github.com/OzMano/Kumparan-Android-Assessment/raw/master/app/release/assessment_julham_adhi_putera.apk)
 
 ## Built With
 - [Kotlin](https://kotlinlang.org/) - Programming language for Android development.
