@@ -15,4 +15,5 @@
     <color name="neutral_900">#333333</color>
     <color name="neutral_700">#707070</color>
     <color name="imageBackgroundTint">#C3C3C3</color>
+    <color name="divider">#AEAEAE</color>
 </resources>

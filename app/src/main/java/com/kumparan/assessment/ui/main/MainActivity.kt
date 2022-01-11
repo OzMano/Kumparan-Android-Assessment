@@ -15,6 +15,7 @@ import com.kumparan.assessment.model.State
 import com.kumparan.assessment.model.User
 import com.kumparan.assessment.ui.base.BaseActivity
 import com.kumparan.assessment.ui.main.adapter.PostListAdapter
+import com.kumparan.assessment.ui.post.PostActivity
 import com.kumparan.assessment.utils.*
 import com.shreyaspatil.MaterialDialog.MaterialDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -152,11 +153,11 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     private fun onItemClicked(post: Post, user: User) {
-//        val intent = Intent(this, PostDetailsActivity::class.java)
-//            .apply {
-//                putExtra("post", post)
-//                putExtra("user", user)
-//            }
-//        startActivity(intent)
+        val intent = Intent(this, PostActivity::class.java)
+            .apply {
+                putExtra("post", post)
+                putExtra("user", user)
+            }
+        startActivity(intent)
     }
 }
