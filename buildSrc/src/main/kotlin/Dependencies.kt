@@ -65,4 +65,5 @@ object Room {
 object Image {
     const val circleImageView = "de.hdodenhof:circleimageview:3.1.0"
     const val coil = "io.coil-kt:coil:1.0.0"
+    const val imageViewer = "com.github.stfalcon-studio:StfalconImageViewer:v1.0.1"
 }

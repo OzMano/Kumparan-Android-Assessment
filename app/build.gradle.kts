@@ -70,6 +70,7 @@ dependencies {
     //ImageView
     implementation(Image.circleImageView)
     implementation(Image.coil)
+    implementation(Image.imageViewer)
 
     // Room components
     implementation(Room.runtime)
